@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeTodo } from '../features/todo/todoSlice'
+import { removeTodo } from '../Features/todo/todoSlice'
 import compose from "../assets/compose.png";
 
-function Todos() {
+function Todos({setEditingTodo}) {
     const todos = useSelector(state => state.todos)
     const dispatch = useDispatch()
 
@@ -20,6 +20,7 @@ function Todos() {
                         <div
                         className='w-[10vw] flex flex-row justify-between'>
                             <button
+                            onClick={() => setEditingTodo(todo)}
                                 className='py-1 px-4 bg-red-500 hover:bg-red-600 rounded'>
                                 <img src={compose} alt="Edit"
                                     className=' w-6 h-6 ' />

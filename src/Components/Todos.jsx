@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeTodo } from '../Features/todo/todoSlice'
 import compose from "../assets/compose.png";
@@ -7,29 +7,38 @@ function Todos({setEditingTodo}) {
     const todos = useSelector(state => state.todos)
     const dispatch = useDispatch()
 
+    const [completed, setCompleted] = useState(false)
+
     return (
         <>
-            <div>Todos</div>
+            <div
+            className='text-2xl font-sans text-white font-bold pt-[20px]'>Todo List</div>
             <ul className="list-none">
                 {todos.map((todo) => (
                     <li
-                        className="mt-4 flex justify-between items-center w-[80vw] bg-zinc-800 px-4 py-2 rounded"
+                        className={` ${completed ? "mt-4 flex justify-between items-center w-[80vw] px-4 py-2 rounded bg-white ] " 
+                            : "mt-4 flex justify-between items-center w-[80vw] bg-zinc-800 px-4 py-2 rounded"
+                        }`}
                         key={todo.id}
                     >
-                        <div className='text-white w-[70vw]'>{todo.text}</div>
+                        <input type="checkbox" 
+                        onChange={() => setCompleted(!completed)}
+                        className='mr-[15px] accent-indigo-600 '/>
+
+                        <div className={completed?'text-black font-bold w-[70vw] line-through text-xl' : 'text-white w-[70vw]'}>{todo.text}</div>
                         <div
-                        className='w-[10vw] flex flex-row justify-between'>
+                        className={completed?"w-[5vw]":"w-[10vw] flex flex-row justify-between"}>
                             <button
                             onClick={() => setEditingTodo(todo)}
-                                className='py-1 px-4 bg-red-500 hover:bg-red-600 rounded'>
+                                className={completed?"hidden" : "py-1 px-4 bg-red-500 hover:bg-red-600 rounded"}>
                                 <img src={compose} alt="Edit"
                                     className=' w-6 h-6 ' />
                             </button>
                             <button
                                 onClick={() => dispatch(removeTodo(todo.id))}
                                 className="text-white bg-red-500 border-0 
-              py-1 px-4 focus:outline-none hover:bg-red-600 
-              rounded text-md"
+                                py-1 px-4 focus:outline-none hover:bg-red-600 
+                                rounded text-md"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

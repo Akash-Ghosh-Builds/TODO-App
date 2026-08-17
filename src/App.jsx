@@ -10,7 +10,8 @@ function App() {
 
   return (
     <>
-    <h1>Todo App</h1>
+    <h1
+    className='text-center text-3xl text-white pt-[20px] font-serif font-bold'>Todo App</h1>
     <AddTodo
     editingTodo ={editingTodo}
     setEditingTodo = {setEditingTodo}/>
